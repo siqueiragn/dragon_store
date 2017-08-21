@@ -1,5 +1,5 @@
 <?php
-require('MYSQL.php');
+require 'app/MYSQL.class.php';
 
 class ProdutoDAO {
 	public function __construct(){
@@ -13,7 +13,8 @@ class ProdutoDAO {
 		"','". $prod->getPreco() . 
 		"','". $prod->getFoto() . 
 		"','". $prod->getQuantidade() . 
-		"','". $prod->getObservacoes() . "')";
+		"','". $prod->getCategoria() . 
+		"','". $prod->getDescricao() . "')";
 		$db->execute($query);
 	}
 	

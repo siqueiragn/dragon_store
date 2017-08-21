@@ -6,16 +6,18 @@ class Produto
 	private $nome;
 	private $preco;
 	private $quantidade;
-	private $observacoes;
+	private $descricao;
+	private $categoria;
 	private $foto;
 
-	public function __construct ($idProduto, $nome, $preco, $quantidade, $foto, $observacoes){
+	public function __construct ($idProduto, $nome, $preco, $quantidade, $foto, $descricao, $categoria){
 		$this->idProduto = $idProduto;
 		$this->nome = $nome;
 		$this->preco = $preco;
 		$this->quantidade = $quantidade;
 		$this->foto = $foto;
-		$this->observacoes = $observacoes;
+		$this->descricao = $descricao;
+		$this->categoria = $categoria;
 	}
 
 	/*public function toString() {
@@ -34,11 +36,14 @@ class Produto
 	public function getQuantidade(){
 		return $this->quantidade;
 	}
-	public function getObservacoes(){
-		return $this->observacoes;
+	public function getDescricao(){
+		return $this->descricao;
 	}
 	public function getFoto(){
 		return $this->foto;
+	}
+	public function getCategoria(){
+		return $this->categoria;
 	}
 	
 }
