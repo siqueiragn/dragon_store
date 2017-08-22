@@ -15,7 +15,10 @@ class MYSQL
 			echo "Foi\n";
 		*/
     }
-
+	
+    public function getDB(){
+    	return $this->database;
+    }
 	
 	public function findFirst($table, $where) {
 		$comando = $this->$database->prepare("SELECT * FROM ".$table." WHERE ".$where." LIMIT 1");
@@ -25,9 +28,21 @@ class MYSQL
 		return $linha;
 	}
 	
-	public function execute($query){
+	public function exec($query){
+		echo $query;
+		
 		$comando = $this->database->prepare($query);
-		$comando->execute();
+		
+		if ($comando) {
+			mysqli_real_escape_string($this->database, $query);
+			$comando->execute();
+			$resultado = $comando->get_result();
+			return $resultado;
+		}
+		else {
+			echo "<br> Erro no preparo do comando SQL";
+		}
+		
 	}
 	
 }

@@ -6,8 +6,7 @@ class CategoriaDAO {
 	
 	public static function loadAll(){
 		$db = new MYSQL();
-		$db->execute("SELECT * FROM Categoria");
-		return $db->get_result();
+		return $db->exec("SELECT * FROM Categoria");;
 	}
 	
 	
