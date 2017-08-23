@@ -1,4 +1,4 @@
-<?php 
+<?php
 require('../app/DAO/ProdutoDAO.class.php');
 ?>
 
@@ -70,54 +70,53 @@ require('../app/DAO/ProdutoDAO.class.php');
     </div>
 </div>
 
- <?php  
-    $result = ProdutoDAO::loadByID($_GET['id']);
-   foreach ($result as $line){
-   /* for($i = 0; $i<10;$i++){ */ 
-    ?> 
-<div class="container">
-    
-    <div class="card black">
-        <div class="container-fliud">
-            <div class="wrapper row">
-                <div class="preview col-md-6">
-                    <div class="preview-pic tab-content">
-                       <?php echo "<div class='tab-pane active'><img src='img/". $line['foto'] ."'/></div>"; ?>
+<?php
+$result = ProdutoDAO::loadByID($_GET['id']);
+foreach ($result as $line) {
+    /* for($i = 0; $i<10;$i++){ */
+    ?>
+    <div class="container">
+
+        <div class="card black">
+            <div class="container-fliud">
+                <div class="wrapper row">
+                    <div class="preview col-md-6">
+                        <div class="preview-pic tab-content">
+                            <?php echo "<div class='tab-pane active'><img src='img/" . $line['foto'] . "'/></div>"; ?>
+                        </div>
+
                     </div>
 
-                </div>
-
-                <div class="details col-md-6 text-white">
-                    <?php echo "<h3 class='product-title'>". $line['nome']."</h3>"; ?>
-<?php echo "<small>Estoque:<span> ".$line['quantidade'] ."</span></small>"; ?>
-                  <?php echo "<p class='product-description'>". $line['descricao'] ."</p>"; ?>
-                    <?php echo "<h4 class='price'>Preço R$:<span> ".$line['preco'] ."</span></h4>"; ?>
-                    
+                    <div class="details col-md-6 text-white">
+                        <?php echo "<h3 class='product-title'>" . $line['nome'] . "</h3>"; ?>
+                        <?php echo "<small>Estoque:<span> " . $line['quantidade'] . "</span></small>"; ?>
+                        <?php echo "<p class='product-description'>" . $line['descricao'] . "</p>"; ?>
+                        <?php echo "<h4 class='price'>Preço R$:<span> " . $line['preco'] . "</span></h4>"; ?>
 
 
-                    <div class="row">
-                        <div class="col-sm-7">
-                            <button class="btn-lg btn btn-success" type="button"><a class="text-white"
-                                                                                    href="adicionacarrinho.php">
-                                    Adicionar ao carrinho</a></button>
+                        <div class="row">
+                            <div class="col-sm-7">
+                                <button class="btn-lg btn btn-success" type="button"><a class="text-white"
+                                                                                        href="adicionacarrinho.php">
+                                        Adicionar ao carrinho</a></button>
+                            </div>
+                            <br/><br/>
+                            <div class="col-sm-4">
+                                <button class="btn-lg btn btn-danger" type="button"><a class="text-white"
+                                                                                       href="carrinho.php"> Comprar</a>
+                                </button>
+                            </div>
+
                         </div>
-                        <br/><br/>
-                        <div class="col-sm-4">
-                            <button class="btn-lg btn btn-danger" type="button"><a class="text-white"
-                                                                                   href="carrinho.php"> Comprar</a>
-                            </button>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </div>
+
     </div>
- 
-</div>
 
 
-<?php } ?>  
+<?php } ?>
 <br/>
 <hr class="featurette-divider">
 <footer>

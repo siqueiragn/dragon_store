@@ -44,8 +44,9 @@
 <br/>
 <hr class="featurette-divider">
 <br/>
+
 <!--Colocar while para mostrar todos os produtos, sim todos eles, não vou fazer página pra lista produtos-->
-<div class="container">
+<!--<div class="container">
     <div class="row">
         <div class="col-lg-4">
             <div class="text-center">
@@ -65,7 +66,7 @@
 
     </div>
 </div>
-
+-->
 <br/>
 <hr class="featurette-divider">
 

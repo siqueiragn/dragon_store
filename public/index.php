@@ -5,13 +5,12 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
     <title>Dragon Store</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
     <link href="css/site.css" rel="stylesheet">
 
 <body>
