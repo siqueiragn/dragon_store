@@ -1,3 +1,13 @@
+<?php
+
+session_start();
+if($_SESSION['autenticado'] != 'OK')
+	header('Location: login.php');
+	
+	
+	
+	?>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -37,36 +47,54 @@
         </form>
         <a class="nav-link text-white" href="carrinho.php"><i
                     class="material-icons"> shopping_cart</i></a>
-        <a class="nav-link bg-danger text-white" href="logout.php">logout</a>
+        <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
     </div>
 </nav>
 
 <br/>
 <hr class="featurette-divider">
 <br/>
-
 <!--Colocar while para mostrar todos os produtos, sim todos eles, não vou fazer página pra lista produtos-->
-<!--<div class="container">
-    <div class="row">
-        <div class="col-lg-4">
-            <div class="text-center">
-                <img class="rounded-circle"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                     alt="Generic placeholder image" width="140" height="140">
-                <h2>NOME PROD</h2>
-                <p><b>DESCRIÇÃO</b><br/>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id
-                    dolor id nibh ultricies
-                    vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
-                    cursus magna.</p>
-                <b>R$: PREÇO PAGO</b>
-                <br/>
-                <p><a class="btn btn-secondary" href="produtos.php" role="button">Ver mais</a></p>
+<?php 
+require('../app/DAO/CarrinhoDAO.class.php');
+$resultChart = CarrinhoDAO::loadProdutoByChart($_SESSION['idUsuario'],1);
+if(is_null($resultChart)){
+echo "
+<div class='container'>
+    <div class='row'>
+        <div class='col-12'>
+            <div class='card black text-center'>
+                <h3 class='text-white'>Vossa senhoria, senhor do reino TAL" ./* .$_SESSION['cidade']. */", não adquiriu nenhum
+                    dragão ainda</h3>
             </div>
         </div>
+    </div>
+</div>";
+} else {
+?>
+<div class="container">
+    <div class="row">
+    <?php 
+        
+foreach($resultChart as $line){
+?>
+        <div class="col-lg-4">
+            <div class="text-center">
+                <?php echo "<img class='rounded-circle'
+                     src='img/".$line['foto'] ."'alt='Imagem' width='140' height='140'>"; 
+                 echo "<h2>".$line['nome']."</h2>";
+                echo "<p><b>DESCRIÇÃO</b><br/>".$line['descricao']."</p>";
+                echo "<b>R$: ".$line['total']."</b>";
+                
+                /*echo "<br/>
+                <p><a class='btn btn-secondary' href='../public/produto.php?id=".$line['id_produto']."' role='button'>Ver mais</a></p>"; */?> 
+            </div>
+        </div>
+<?php }?>
 
     </div>
 </div>
--->
+<?php }?>
 <br/>
 <hr class="featurette-divider">
 

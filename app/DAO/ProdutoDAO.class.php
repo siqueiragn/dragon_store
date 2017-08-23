@@ -35,6 +35,7 @@ class ProdutoDAO {
 		$query = "SELECT * FROM Produto ORDER BY Preco ASC LIMIT ".MYSQL::filtrar($limit);
 		return $db->exec($query);
 	}
+
 }
 	
 	?>

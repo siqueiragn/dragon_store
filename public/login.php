@@ -1,3 +1,10 @@
+<?php 
+
+session_start();
+if(isset($_SESSION['autenticado']) && ($_SESSION['autenticado'] == 'OK'))
+	header('Location: dashboard.php');
+?>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">

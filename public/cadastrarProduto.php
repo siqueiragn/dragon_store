@@ -3,8 +3,9 @@ require('../app/DTO/Produto.class.php');
 require('../app/DAO/ProdutoDAO.class.php');
 require('../app/DAO/CategoriaDAO.class.php');
 require('../app/DTO/Categoria.class.php');
-
-
+session_start();
+if($_SESSION['autenticado'] != 'OK')
+	header('Location: login.php');
 
  /*if ($_FILES['arquivo']['type'] == 'image/gif'
    || $_FILES['arquivo']['type'] == 'image/jpeg'

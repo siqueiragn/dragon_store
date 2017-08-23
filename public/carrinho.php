@@ -1,7 +1,8 @@
 <!--http://www.codigosnaweb.com/forum/viewtopic.php?t=8031 - CALCULO DE FRETE-->
 
 <?php
-require('../app/DAO/ProdutoDAO.class.php');
+require('../app/DAO/CarrinhoDAO.class.php');
+session_start();
 ?>
 
 <html lang="pt">
@@ -74,7 +75,7 @@ require('../app/DAO/ProdutoDAO.class.php');
 <hr class="featurette-divider">
 
 <?php
-$result = CarrinhoDAO::loadByUserID($_GET['id']);
+$result = CarrinhoDAO::loadProdutoByChart($_SESSION['idUsuario']);
 foreach ($result as $line) {
     ?>
 

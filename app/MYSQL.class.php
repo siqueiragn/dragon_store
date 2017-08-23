@@ -30,7 +30,6 @@ class MYSQL
 	
 	public function exec($query){
 		//echo $query;
-		
 		$comando = $this->database->prepare($query);
 		
 		if ($comando) {
