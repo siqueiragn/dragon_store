@@ -1,5 +1,5 @@
 <?php
-require 'app/MYSQL.class.php';
+require '../app/MYSQL.class.php';
 
 class ProdutoDAO {
 	public function __construct(){
@@ -24,9 +24,17 @@ class ProdutoDAO {
 	
 	public static function loadByID($id){
 		$db = new MYSQL();
-		$query = "SELECT * FROM Produto WHERE id = " . $id;
+		
+		$query = "SELECT * FROM Produto WHERE id_produto = " . MYSQL::filtrar($id);
 		return $db->exec($query);
 	}
 	
+	public static function loadMPrice($limit){
+		$db = new MYSQL();
+		
+		$query = "SELECT * FROM Produto ORDER BY Preco ASC LIMIT ".MYSQL::filtrar($limit);
+		return $db->exec($query);
+	}
 }
+	
 	?>

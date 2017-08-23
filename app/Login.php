@@ -1,17 +1,26 @@
  <?php
  
- require('../MYSQL.php');
-	 function __construct($login, $senha){
+ require('MYSQL.class.php');
 	$db = new MYSQL();
- $query = "SELECT * FROM usuario WHERE login = '$login'"; //O teste inicial deve ser só no login
- $result = mysqli_query($db, $sql) or die(mysqli_error());
- $linhas = mysqli_num_rows($result); //Se não retornou nenhuma linha, é porque não existe ninguém com esse login
- $linha = mysqli_fetch_assoc($result); //Tenta retornar a primeira linha de qualquer forma, para testar a senha
- if ($linhas <= 0 or !password_verify($_POST['senha'], $linha['senha']) ) { //Se não existia o login OU a verificação da senha falhou
-    header('Location: www.google.com.br');
-}
-else {
- //código do login
-	 }
-	 }
- }
+	$login = MYSQL::filtrar($_POST['login']);
+ $query = "SELECT * FROM usuario WHERE email = '". $login ."'"; //O teste inicial deve ser só no login
+	$result = $db->exec($query);
+	exit;
+	
+ 	$linha = $result->fetch_assoc();
+ 	if(/* password_verify($_POST['senha'], $linha['password']) */true){
+ 		setcookie('autenticado', 'OK');
+ 		$_SESSION['idUsuario'] = $linha['id_Usuario'];
+ 		$_SESSION['isAdmin'] = $linha['is_admin'];
+ 		header('Location: ../public/cadasfftrarProduto.php');
+ 		
+ 	}
+ 	else {
+ 		header('Location: ../public/Login.php');
+ 	}
+	}
+	else {
+		header('Location: ../public/Login.php');
+	}
+	 
+ ?>

@@ -33,15 +33,15 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col-sm-4 top back-login text-center">
-            <form class="form-signin ">
+            <form class="form-signin" action="../app/Login.php" method="POST">
                 <h2 class="form-signin-heading text-white">Logyn</h2>
                 <br/>
-                <label for="inputEmail" class="sr-only">Emailes</label>
-                <input type="email" id="inputEmail" class="form-control" placeholder="Emailes" required="" autofocus=""
+                <label for="inputEmail" class="sr-only">Email</label>
+                <input type="login" name="login" class="form-control" placeholder="Email" required="" autofocus=""
                        autocomplete="off">
                 <br/>
-                <label for="inputPassword" class="sr-only">Senhareys</label>
-                <input type="password" id="inputPassword" class="form-control" placeholder="Senhareys" required=""
+                <label for="inputPassword" class="sr-only">Senha</label>
+                <input type="password" name="password" class="form-control" placeholder="Senha" required=""
                        autocomplete="off">
                 <br/>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">Entrarys</button>

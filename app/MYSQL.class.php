@@ -29,7 +29,7 @@ class MYSQL
 	}
 	
 	public function exec($query){
-		echo $query;
+		//echo $query;
 		
 		$comando = $this->database->prepare($query);
 		
@@ -42,6 +42,22 @@ class MYSQL
 		else {
 			echo "<br> Erro no preparo do comando SQL";
 		}
+		
+	}
+	
+	public function filtrar($variavel) {
+		
+		$variavel = str_ireplace(' OR ','',$variavel);
+		$variavel = str_ireplace(' AND ', '', $variavel);
+		$variavel = str_ireplace(';', '', $variavel);
+		$variavel = str_ireplace('\'','',$variavel);
+		$variavel = str_ireplace('\"','',$variavel);
+		$variavel = str_ireplace('DROP ','',$variavel);
+		$variavel = str_ireplace('UPDATE ','',$variavel);
+		$variavel = str_ireplace('DELETE ', '', $variavel);
+		$variavel = str_ireplace('=','',$variavel);
+		$variavel = str_ireplace('-','',$variavel);
+		return $variavel;
 		
 	}
 	

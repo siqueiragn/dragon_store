@@ -9,64 +9,52 @@
           rel="stylesheet">
     <title>Dragon Store</title>
 
+    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <link href="css/site.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+
 <body>
 
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="index.php">Dragon Store</a>
-    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm">
 
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="login.php">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="cadastro.php">Cadastro</a>
-            </li>
-        </ul>
-        <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <a class="nav-link text-white" href="carrinho.php"><i
-                    class="material-icons"> shopping_cart</i></a>
+                <div class="col-md-8">
+                    <ul class="nav navbar-nav">
+                        <li class="nav-item col-2"><a class="navbar-brand" href="index.php"> Dragon Store </a></li>
+                        <!--colocar if para verificar se o usuário está logado, se estiver mostra o bloco do próximo
+                        comentário-->
+                        <li class="nav-item col-2"><a class="nav-link" href="login.php"> Login</a></li>
+                        <li class="nav-item col-2"><a class="nav-link" href="cadastro.php"> Cadastre - se</a></li>
+                        <!--
+                            <div class="dropdown">
+                            <ul class="dropdown-menu">
+                                <li class="nav-item col">Bem vindo //nome</li>
+                                <li class="nav-item col"><img src="" class="rounded"></li>
+                            </ul>
+                        </div>-->
+
+                    </ul>
+                </div>
+
+                <div class="col-md-3 form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
+
+                <div class="col-md-1">
+                <a class="nav-link text-white" href="carrinho.php"><i
+                        class="material-icons"> shopping_cart</i></a></nav>
+
+
+            </nav>
+        </div>
     </div>
-</nav>
-
-<!--Se estiver logado mostra esse
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <a class="navbar-brand" href="index.php">Dragon Store</a>
-    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="perfil.php">Perfil</a>
-            </li>
-        </ul>
-        <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-        <a class="nav-link text-white" href="carrinho.php"><i
-                    class="material-icons"> shopping_cart</i></a>
-        <a class="nav-link bg-danger text-white" href="#">logout</a>
-    </div>
-</nav>
--->
+</div>
 
 <div class="fixed back">
 
@@ -93,28 +81,30 @@
 <div class="container">
     <div class="row">
 
+<?php 
+require('../app/DAO/ProdutoDAO.class.php');
+
+$result = ProdutoDAO::loadMPrice(3);
+foreach($result as $line){
+?>
         <div class="col-lg-4">
             <div class="text-center">
-                <img class="rounded-circle"
-                     src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw=="
-                     alt="Generic placeholder image" width="140" height="140">
-                <h2>NOME PROD</h2>
-                <p><b>DESCRIÇÃO</b><br/>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id
-                    dolor id nibh ultricies
-                    vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo
-                    cursus magna.</p>
-                <b>R$: PREÇO</b>
-                <br/>
-                <p><a class="btn btn-secondary" href="#" role="button">Ver mais</a></p>
+                <?php echo "<img class='rounded-circle'
+                     src='img/".$line['foto'] ."'alt='Imagem' width='140' height='140'>"; 
+                 echo "<h2>".$line['nome']."</h2>";
+                echo "<p><b>DESCRIÇÃO</b><br/>".$line['descricao']."</p>";
+                echo "<b>R$: ".$line['preco']."</b>";
+                
+                echo "<br/>
+                <p><a class='btn btn-secondary' href='../public/produto.php?id=".$line['id_produto']."' role='button'>Ver mais</a></p>"; ?>
             </div>
         </div>
-
+<?php }?>
     </div>
 </div>
 
 <br/>
 <hr class="featurette-divider">
-
 
 <footer>
     <div class="text-center">
