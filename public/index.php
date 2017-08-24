@@ -53,11 +53,13 @@ if($_GET['logout']==1)
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
-
+<?php 
+if($_SESSION['autenticado'] == 'OK'){
+	?>
                 <div class="col-md-1">
                 <a class="nav-link text-white" href="carrinho.php"><i
                         class="material-icons"> shopping_cart</i></a></nav>
-
+<?php }?>
 
             </nav>
         </div>

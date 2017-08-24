@@ -1,5 +1,5 @@
 <?php
-
+//require('../app/MYSQL.class.php');
 class CategoriaDAO {
 	public function __construct(){
 	}

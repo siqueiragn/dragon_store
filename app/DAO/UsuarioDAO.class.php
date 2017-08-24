@@ -1,9 +1,8 @@
 <?php
-require('../MYSQL.php');
-
+require('../app/MYSQL.class.php');
 class UsuarioDAO {
 	public function __construct(){
-		
+		parent::__construct();
 	}
 	public static function insert(Usuario $user){
 		$db = new MYSQL();

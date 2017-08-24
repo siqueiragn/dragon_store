@@ -1,7 +1,7 @@
 <?php 
 require('../app/DAO/ProdutoDAO.class.php');
 require('../app/DAO/CategoriaDAO.class.php');
-
+session_start();
 ?>
 
 <html lang="pt">
@@ -27,7 +27,9 @@ require('../app/DAO/CategoriaDAO.class.php');
 
 <body>
 
-<div class="container-fluid">
+                <div class="col-md-8">
+                	<?php if($_SESSION['autenticado'] != 'OK'){?>
+                   <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
             <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm">
@@ -39,38 +41,56 @@ require('../app/DAO/CategoriaDAO.class.php');
                         comentário-->
                         <li class="nav-item col-2"><a class="nav-link" href="login.php"> Login</a></li>
                         <li class="nav-item col-2"><a class="nav-link" href="cadastro.php"> Cadastre - se</a></li>
-                        <!--
-                            <div class="dropdown">
-                            <ul class="dropdown-menu">
-                                <li class="nav-item col">Bem vindo //nome</li>
-                                <li class="nav-item col"><img src="" class="rounded"></li>
-                                <div class="preview-thumbnail nav nav-tabs">
-                        <li class="active"><a data-target="#pic-1" data-toggle="tab"><img
-                                        src="img/gretchen.jpg"/></a></li>
-                    </div>
-                            </ul>
-                        </div>-->
-
                     </ul>
                 </div>
 
                 <div class="col-md-3 form-inline my-2 my-lg-0">
-                    <form class="form-inline my-2 my-lg-0">
+                    <form class="form-inline my-2 my-lg-0" action="resultado.php">
                         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
                 </div>
-
+<?php 
+if($_SESSION['autenticado'] == 'OK'){
+	?>
                 <div class="col-md-1">
-                    <a class="nav-link text-white" href="carrinho.php"><i
-                                class="material-icons"> shopping_cart</i></a>
-            </nav>
-
-
+                <a class="nav-link text-white" href="carrinho.php"><i
+                        class="material-icons"> shopping_cart</i></a></nav>
+         <?php }?>
             </nav>
         </div>
+        
     </div>
 </div>
+<?php } else { ?>
+               	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+		    <a class="navbar-brand" href="index.php">Dragon Store</a>
+		    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+		            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+		        <span class="navbar-toggler-icon"></span>
+		    </button>
+		
+		    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+		        <ul class="navbar-nav mr-auto">
+		            <li class="nav-item active">
+		                <a class="nav-link" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
+		            </li>
+		            <li class="nav-item">
+		                <a class="nav-link" href="perfil.php">Perfil</a>
+		            </li>
+		        </ul>
+		        <form class="form-inline mt-2 mt-md-0">
+		            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
+		            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+		        </form>
+		        <a class="nav-link text-white" href="carrinho.php"><i
+		                    class="material-icons"> shopping_cart</i></a>
+		        <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
+		    </div>
+		</nav> 
+                    <?php }
+                    ?>
+                </div>
 
  <?php  
     $result = ProdutoDAO::loadByID($_GET['id']);
@@ -100,26 +120,34 @@ require('../app/DAO/CategoriaDAO.class.php');
                   <?php echo "<p class='product-description'>Categoria: ". CategoriaDAO::loadCategoriaByID($line['categoria']) ."</p>"; ?>
                   
                     <?php echo "<h4 class='price'>Preço unitário R$:<span> ".$line['preco'] ."</span></h4>"; ?>
-                    <form action="carrinho.php" method="post">
+                    <form action="adicionaCarrinho.php" method="post">
                     <?php echo "<input type='number' min='1' max='".$line['quantidade']."' name='qtde'>"?>
-                    </form>
+                    
+<?php $_SESSION['idProd'] = $line['id_produto'];
+	$_SESSION['preco'] = $line['preco'];
+	$_SESSION['quantidadeTotal'] = $line['quantidade'];
+	?>
 
-
+<?php 
+if($_SESSION['autenticado'] == 'OK'){;
+	?>
                     <div class="row">
                         <div class="col-sm-7">
-                            <button class="btn-lg btn btn-success" type="button"><a class="text-white"
-                                                                                    href="adicionacarrinho.php">
-                                    Adicionar ao carrinho</a></button>
+                            <input class="btn-lg btn btn-success text-white" type="submit" value="Adicionar ao Carrinho">
                         </div>
                         <br/><br/>
                         <div class="col-sm-4">
-                            <button class="btn-lg btn btn-danger" type="button"><a class="text-white"
+                            <button class="btn-lg btn btn-danger" type="submit"><a class="text-white"
                                                                                    href="carrinho.php"> Comprar</a>
                             </button>
+                           
                         </div>
 
                     </div>
+                    </form>
+                    <?php }?>
                 </div>
+                 
             </div>
         </div>
     </div>

@@ -29,7 +29,7 @@ class MYSQL
 	}
 	
 	public function exec($query){
-		//echo $query;
+		echo "<br>".$query;
 		$comando = $this->database->prepare($query);
 		
 		if ($comando) {
