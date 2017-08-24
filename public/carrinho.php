@@ -120,6 +120,7 @@ foreach ($result as $line) {
                             <br/>
                             <?php echo "<small>Quantidade:<span> " . $line['quantidade'] . "</span></small><br/>"; ?>
                             <?php echo "<h4 class='price'>Preço R$:<span> " . $line['preco'] . "</span></h4>"; ?>
+                            <i class="material-icons">delete</i>
                         </div>
                     </div>
 
