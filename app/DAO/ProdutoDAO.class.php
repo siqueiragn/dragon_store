@@ -29,6 +29,14 @@ class ProdutoDAO {
 		return $db->exec($query);
 	}
 	
+	public static function loadByName($nome){
+		$db = new MYSQL();
+		$query = "SELECT * FROM Produto";
+			if($nome != '')
+				$query .= " WHERE nome LIKE '%" . MYSQL::filtrar($nome)."%'";
+		return $db->exec($query);
+	}
+	
 	public static function loadMPrice($limit){
 		$db = new MYSQL();
 		

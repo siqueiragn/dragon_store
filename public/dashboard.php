@@ -1,11 +1,7 @@
 <?php
-
 session_start();
 if($_SESSION['autenticado'] != 'OK')
 	header('Location: login.php');
-	
-	
-	
 	?>
 
 <html lang="en">
@@ -41,10 +37,10 @@ if($_SESSION['autenticado'] != 'OK')
                 <a class="nav-link" href="perfil.php">Perfil</a>
             </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+        <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+                    </form>
         <a class="nav-link text-white" href="carrinho.php"><i
                     class="material-icons"> shopping_cart</i></a>
         <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
@@ -54,17 +50,17 @@ if($_SESSION['autenticado'] != 'OK')
 <br/>
 <hr class="featurette-divider">
 <br/>
-<!--Colocar while para mostrar todos os produtos, sim todos eles, não vou fazer página pra lista produtos-->
 <?php 
 require('../app/DAO/CarrinhoDAO.class.php');
 $resultChart = CarrinhoDAO::loadProdutoByChart($_SESSION['idUsuario'],1);
-if(is_null($resultChart)){
+
+if(mysqli_num_rows($resultChart)==0){
 echo "
 <div class='container'>
     <div class='row'>
         <div class='col-12'>
             <div class='card black text-center'>
-                <h3 class='text-white'>Vossa senhoria, senhor do reino TAL" ./* .$_SESSION['cidade']. */", não adquiriu nenhum
+                <h3 class='text-white'>Vossa senhoria não adquiriu nenhum
                     dragão ainda</h3>
             </div>
         </div>
@@ -84,6 +80,7 @@ foreach($resultChart as $line){
                      src='img/".$line['foto'] ."'alt='Imagem' width='140' height='140'>"; 
                  echo "<h2>".$line['nome']."</h2>";
                 echo "<p><b>DESCRIÇÃO</b><br/>".$line['descricao']."</p>";
+                echo "<br>Quantidade: ".$line['quantidade'] ."<br>";
                 echo "<b>R$: ".$line['total']."</b>";
                 
                 /*echo "<br/>

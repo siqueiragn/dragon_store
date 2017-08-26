@@ -1,9 +1,12 @@
 <?php 
-
-if($_GET['logout']==1)
-	session_start();
+session_start();
+if($_GET['logout']==1){
+	
 	$_SESSION['autenticado'] = 'NOK';
-
+}
+if($_SESSION['autenticado'] == 'OK'){
+	header('Location: dashboard.php');
+}
 	?>
 
 <html lang="en">
@@ -48,9 +51,9 @@ if($_GET['logout']==1)
                 </div>
 
                 <div class="col-md-3 form-inline my-2 my-lg-0">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
                     </form>
                 </div>
 <?php 

@@ -45,9 +45,9 @@ session_start();
                 </div>
 
                 <div class="col-md-3 form-inline my-2 my-lg-0">
-                    <form class="form-inline my-2 my-lg-0" action="resultado.php">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                     <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
                     </form>
                 </div>
 <?php 
@@ -79,10 +79,10 @@ if($_SESSION['autenticado'] == 'OK'){
 		                <a class="nav-link" href="perfil.php">Perfil</a>
 		            </li>
 		        </ul>
-		        <form class="form-inline mt-2 mt-md-0">
-		            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-		            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		        </form>
+		        <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+                    </form>
 		        <a class="nav-link text-white" href="carrinho.php"><i
 		                    class="material-icons"> shopping_cart</i></a>
 		        <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
@@ -97,7 +97,16 @@ if($_SESSION['autenticado'] == 'OK'){
    foreach ($result as $line){
    /* for($i = 0; $i<10;$i++){ */ 
    if($line['quantidade'] <= 0){
-   	echo "<div class='card black col-md-4'> <h1> Sem estoque :(</h2></div>";
+   	echo "
+<div class='container'>
+    <div class='row'>
+        <div class='col-12'>
+            <div class='card black text-center'>
+                <h3 class='text-white'>Esgotado!</h3>
+            </div>
+        </div>
+    </div>
+</div>";
    } else{
  
    	?> 
@@ -121,16 +130,14 @@ if($_SESSION['autenticado'] == 'OK'){
                   
                     <?php echo "<h4 class='price'>Preço unitário R$:<span> ".$line['preco'] ."</span></h4>"; ?>
                     <form action="adicionaCarrinho.php" method="post">
-                    <?php echo "<input type='number' min='1' max='".$line['quantidade']."' name='qtde'>"?>
-                    
-<?php $_SESSION['idProd'] = $line['id_produto'];
-	$_SESSION['preco'] = $line['preco'];
-	$_SESSION['quantidadeTotal'] = $line['quantidade'];
-	?>
+                   
+                    <?php echo "<input type='hidden' name='idProd' value='".$line['id_produto']."'>"?>
+					<?php echo "<input type='hidden' name='preco' value='".$line['preco']."'>"?>
+					<?php echo "<input type='hidden' name='quantidadeTotal' value='".$line['quantidade']."'>"?>
 
 <?php 
 if($_SESSION['autenticado'] == 'OK'){;
-	?>
+echo "<input type='number' min='1' max='".$line['quantidade']."' name='qtde'>"?>	
                     <div class="row">
                         <div class="col-sm-7">
                             <input class="btn-lg btn btn-success text-white" type="submit" value="Adicionar ao Carrinho">

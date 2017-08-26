@@ -31,10 +31,11 @@ class CarrinhoDAO {
 				$db->exec($query);
 			
 	}
-	public static function updateQuantidade($id, $qtde){
+	public static function updateQuantidade($id, $qtde, $signal){
 		$db = new MYSQL();
-		
-		$query = "UPDATE Produto SET Quantidade = ".MYSQL::filtrar($qtde)." WHERE id_produto = ".MYSQL::filtrar($id);
+		if($signal != '-')
+			$signal = '+';
+		$query = "UPDATE Produto SET Quantidade = Quantidade ". $signal . MYSQL::filtrar($qtde)." WHERE id_produto = ".MYSQL::filtrar($id);
 		$db->exec($query);
 	}
 	
@@ -45,9 +46,11 @@ class CarrinhoDAO {
 			$query = "UPDATE Carrinho SET Comprou = 1 WHERE id_produto = ".$item. " AND id_usuario =" . $idUsuario;
 			$db->exec($query);
 		}
-		
-		
-		
+	}
+	public static function delete($idCarrinho){
+		$db = new MYSQL();
+		$query = "DELETE FROM Carrinho WHERE id_Carrinho = ". MYSQL::filtrar($idCarrinho);
+		$db->exec($query);
 	}
 }
 	

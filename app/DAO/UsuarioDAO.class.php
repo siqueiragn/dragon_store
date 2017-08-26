@@ -7,13 +7,13 @@ class UsuarioDAO {
 	public static function insert(Usuario $user){
 		$db = new MYSQL();
 		$query = "INSERT INTO Usuario VALUES ('". $user->getIdUsuario() . 
-		"','". $user->getNome() . 
-		"','". $user->getEmail() . 
-		"','". $user->getSenha() . 
-		"','". $user->getCep() . 
-		"','". $user->getComplemento() . 
-		"','". $user->getAdmin() . "')";
-		$db->execute($query);
+		"','". MYSQL::filtrar($user->getNome()) . 
+		"','". MYSQL::filtrar($user->getEmail()). 
+		"','". password_hash(MYSQL::filtrar($user->getSenha()), PASSWORD_DEFAULT) . 
+		"','". MYSQL::filtrar($user->getCep()) . 
+		"','". MYSQL::filtrar($user->getComplemento()) . 
+		"','". MYSQL::filtrar($user->getAdmin()) . "')";
+		$db->exec($query);
 	}
 	
 	

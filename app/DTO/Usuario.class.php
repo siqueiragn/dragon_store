@@ -24,4 +24,19 @@ class Usuario{
 	public function getEmail(){
 		return $this->email;
 	}
+	public function getIdUsuario(){
+		return $this->idUsuario;
+	}
+	public function getNome(){
+		return $this->nome;
+	}
+	public function getCep(){
+		return $this->cep;
+	}
+	public function getComplemento(){
+		return $this->complemento;
+	}
+	public function getAdmin(){
+		return $this->isAdmin;
+	}
 }

@@ -3,8 +3,19 @@
 <?php
 require('../app/DAO/CarrinhoDAO.class.php');
 session_start();
+$_SESSION['totalizando'] = 0;
 if($_SESSION['autenticado'] != 'OK')
 	header('Location: login.php');
+
+	
+	
+	if(isset($_GET['delete'])){
+		
+		CarrinhoDAO::delete($_GET['delete']);
+		CarrinhoDAO::updateQuantidade($_GET['idProd'], $_GET['qtde'],'+');
+		header("Location: carrinho.php");
+	}
+	
 	
 ?>
 
@@ -46,9 +57,9 @@ if($_SESSION['autenticado'] != 'OK')
                 </div>
 
                 <div class="col-md-3 form-inline my-2 my-lg-0">
-                    <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                      <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
                     </form>
                 </div>
 
@@ -76,10 +87,10 @@ if($_SESSION['autenticado'] != 'OK')
 		                <a class="nav-link" href="perfil.php">Perfil</a>
 		            </li>
 		        </ul>
-		        <form class="form-inline mt-2 mt-md-0">
-		            <input class="form-control" type="text" placeholder="Search" aria-label="Search">
-		            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-		        </form>
+		          <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+                    </form>
 		        <a class="nav-link text-white" href="carrinho.php"><i
 		                    class="material-icons"> shopping_cart</i></a>
 		        <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
@@ -119,7 +130,12 @@ foreach ($result as $line) {
                             <?php echo "<p class='product-description'>" . $line['descricao'] . "</p><br/>"; ?>
                             <br/>
                             <?php echo "<small>Quantidade:<span> " . $line['quantidade'] . "</span></small><br/>"; ?>
-                            <?php echo "<h4 class='price'>Preço R$:<span> " . $line['preco'] . "</span></h4>"; ?>
+                            <?php echo "<h4 class='price'>Preço R$<span> " . $line['preco']*$line['quantidade'] . "</span></h4>";
+                            ?>
+                            <?php echo "<a class='text-white' href='carrinho.php?delete=".$line['id_carrinho']."&idProd=".$line['id_produto']."&qtde=".$line['quantidade']."'>"?>
+                            <i class="material-icons">delete</i>
+                            <?php echo "</a>"?>
+                            
                         </div>
                     </div>
 
@@ -130,12 +146,25 @@ foreach ($result as $line) {
     </div>
 
 
-<?php }
+<?php
+$_SESSION['totalizando'] += $line['preco']*$line['quantidade'];
+}
+
 $_SESSION['carrinho'] = substr_replace ( $acm , '' , strlen($acm)-1 );
 ?>
 
 <br/>
-
+<?php if($acm != ''){
+	echo "<div class='container'>
+    <div class='row'>
+        <div class='col-12'>
+            <div class='card black text-center'>
+               <h4 class='text-white price'>TOTAL NO CARRINHO R$<span> " . $_SESSION['totalizando'] . "</span></h4>
+            </div>
+        </div>
+    </div>
+</div>";
+	?>
 <hr class="featurette-divider">
 
 <div class="container-fluid">
@@ -151,7 +180,19 @@ $_SESSION['carrinho'] = substr_replace ( $acm , '' , strlen($acm)-1 );
         </div>
     </div>
 </div>
-
+<?php } else{
+	echo "<div class='container'>
+    <div class='row'>
+        <div class='col-12'>
+            <div class='card black text-center'>
+                <h3 class='text-white'>Vossa senhoria " ./* .$_SESSION['cidade']. */"não possui nenhum
+                    dragão no seu carrinho.</h3>
+            </div>
+        </div>
+    </div>
+</div>";
+}
+?>
 <hr class="featurette-divider">
 
 <footer>
@@ -166,3 +207,6 @@ $_SESSION['carrinho'] = substr_replace ( $acm , '' , strlen($acm)-1 );
 
 </body>
 </html>
+
+
+

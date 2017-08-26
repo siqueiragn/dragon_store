@@ -1,4 +1,6 @@
 <?php
+ini_set( 'default_charset', 'utf-8');
+header('Content-Type: text/html; charset=utf-8');
 
 class MYSQL
 {
@@ -29,7 +31,8 @@ class MYSQL
 	}
 	
 	public function exec($query){
-		echo "<br>".$query;
+//	echo "<br>".$query;
+
 		$comando = $this->database->prepare($query);
 		
 		if ($comando) {
@@ -56,6 +59,7 @@ class MYSQL
 		$variavel = str_ireplace('DELETE ', '', $variavel);
 		$variavel = str_ireplace('=','',$variavel);
 		$variavel = str_ireplace('-','',$variavel);
+		$variavel = str_ireplace('SET','',$variavel);
 		return $variavel;
 		
 	}

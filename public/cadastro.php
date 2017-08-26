@@ -43,7 +43,7 @@
             <div class="col-12">
                 <div class="black-back-transparent text-center">
 
-                    <form class="form-horizontal" method="POST" action="registrousuario.php">
+                    <form class="form-horizontal" method="POST" action="registroUsuario.php">
 
                         <div class="col-4">
                             <!--Nome-->
@@ -72,32 +72,7 @@
                                        required
                                        placeholder="Senha">
                             </div>
-                            <!--Confirma Sehnha-->
-                            <div class="form-group">
-                                <label for="password-confirm" class="control-label"></label>
-                                <input id="password-confirm" type="password"
-                                       class="form-control input-transparent text-white-opacity input-lg"
-                                       name="password_confirmation" required placeholder="Confirme a senha">
-                            </div>
-                            <!--Data de Nascimento-->
-                            <div class="form-group">
-                                <label for="dataNascimento" class="control-label"></label>
-                                <input id="dataNascimento" type="date"
-                                       class="form-control input-transparent text-white-opacity input-lg"
-                                       name="dataNascimento"
-                                       require
-                                       placeholder="Data Nascimento">
-                            </div>
-
-                            <!--telefone-->
-                            <div class="form-group">
-                                <label for="telefone" class="control-label"></label>
-                                <input id="telefone" type="text"
-                                       class="form-control input-transparent text-white-opacity input-lg"
-                                       name="telefone"
-                                       require placeholder="Telefone">
-                            </div>
-
+                           
                         </div>
 
                         <div class="col-4">
@@ -111,65 +86,20 @@
                                        minlength="8">
                             </div>
 
-                            <!--Numero casa-->
-                            <div class="form-group">
-                                <label for="numeroCasa" class="control-label"></label>
-                                <input id="numeroCasa" type="text"
-                                       class="form-control input-transparent text-white-opacity input-lg"
-                                       name="numeroCasa"
-                                       require placeholder="Número"
-                                       maxlength="4">
-
-                            </div>
-
-                            <!--rua-->
-                            <div class="form-group">
-                                <label for="rua" class="control-label"></label>
-                                <input id="rua" type="text"
-                                       class="form-control input-transparent text-white-opacity input-lg"
-                                       name="rua"
-                                       require placeholder="Rua">
-                            </div>
-
-                            <!---Bairro-->
-                            <div class="form-group">
-                                <label for="bairro" class="control-label"></label>
-                                <input id="bairro" type="text"
-                                       class="form-control input-transparent text-white-opacity input-lg"
-                                       name="bairro"
-                                       require placeholder="Bairro">
-                            </div>
-
-                            <!--Cidade-->
                             <div class="form-group">
                                 <label for="cidade" class="control-label"></label>
                                 <input id="cidade" type="text"
                                        class="form-control input-transparent text-white-opacity input-lg"
-                                       name="cidade"
-                                        require placeholder="Cidade">
+                                       name="complemento"
+                                        require placeholder="Complemento">
                             </div>
 
-                            <!---Estado-->
-                            <div class="form-group">
-                                <label for="uf" class="control-label"></label>
-                                <input id="uf" type="text"
-                                       class="form-control input-transparent text-white-opacity input-lg"
-                                       name="uf"
-                                        require placeholder="Estado" maxlength="2">
-                            </div>
 
                         </div>
 
                         <div class="row">
                             <div class="col-sm-4">
-                                <div class="form-group text-white">
-                                    <i class="material-icons">cloud_upload</i>
-                                    <label for="avatar" class="control-label btn">
-                                        <h4 class="text-orange-file">Selecione uma foto de
-                                            perfil</h4></label>
-                                    <input id="avatar" type="file"
-                                           name="avatar" require>
-                                </div>
+                               
                                 <br/>
                                 <div class="form-group">
                                     <div class="">
