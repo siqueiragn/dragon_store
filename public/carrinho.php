@@ -38,76 +38,30 @@ if (isset($_GET['delete'])) {
 
 <body>
 
-<div class="col-md-8">
-    <?php if ($_SESSION['autenticado'] != 'OK') { ?>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-12">
-                    <nav class="navbar navbar-dark  black-back-transparent fixed-top navbar-expand-sm">
 
-                        <div class="col-md-8">
-                            <ul class="nav navbar-nav">
-                                <li class="nav-item col-2"><a class="navbar-brand" href="index.php"> Dragon Store </a>
-                                </li>
-                                <!--colocar if para verificar se o usuário está logado, se estiver mostra o bloco do próximo
-                                comentário-->
-                                <li class="nav-item col-2"><a class="nav-link" href="login.php"> Login</a></li>
-                                <li class="nav-item col-2"><a class="nav-link" href="cadastro.php"> Cadastre - se</a>
-                                </li>
-                            </ul>
-                        </div>
+<nav class="navbar navbar-expand-md fixed-top black-back-transparent">
+    <a class="navbar-brand text-white" href="index.php">Dragon Store</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-                        <div class="col-md-3 form-inline my-2 my-lg-0">
-                            <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
-                                <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search"
-                                       aria-label="Search">
-                                <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
-                            </form>
-                        </div>
-
-                        <div class="col-md-1">
-                            <a class="nav-link text-white" href="carrinho.php"><i
-                                        class="material-icons"> shopping_cart</i></a>
-                    </nav>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    <?php } else { ?>
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="index.php">Dragon Store</a>
-            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
-                    data-target="#navbarsExampleDefault"
-                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="perfil.php">Perfil</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
-                    <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search"
-                           aria-label="Search">
-                    <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
-                </form>
-                <a class="nav-link text-white" href="carrinho.php"><i
-                            class="material-icons"> shopping_cart</i></a>
-                <a class="nav-link bg-danger text-white" href="../app/logout.php">logout</a>
-            </div>
-        </nav>
-    <?php }
-    ?>
-</div>
-
-<br/>
-
-<hr class="featurette-divider">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active text-white">
+                <a class="nav-link text-white" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
+            </li>
+            
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+                    </form>
+        <a class="nav-link text-white" href="carrinho.php"><i
+                    class="material-icons"> shopping_cart</i></a>
+        <a class="nav-link bg-danger text-white" href="../app/logout.php">logout</a>
+    </div>
+</nav>
 
 <?php
 $result = CarrinhoDAO::loadProdutoByChart($_SESSION['idUsuario']);

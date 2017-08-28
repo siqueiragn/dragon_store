@@ -14,31 +14,40 @@
           rel="stylesheet">
 </head>
 
-<body class="banguela fixed back-image">
+<body class="fixed back-image cuca">
 
-<nav class="navbar navbar-default black-back-transparent">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a href="index.php">
-                <i class="material-icons text-white">keyboard_backspace</i>
-                <b class="text-white navbar-brand navbar-brand-centered">Dragon Store</b>
-            </a>
 
-        </div>
+<nav class="navbar navbar-expand-md fixed-top black-back-transparent">
+    <a class="navbar-brand text-white" href="index.php">Dragon Store</a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
+            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active text-white">
+                <a class="nav-link text-white" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
+            </li>
+            
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
+                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+                    </form>
+        <a class="nav-link text-white" href="carrinho.php"><i
+                    class="material-icons"> shopping_cart</i></a>
+        <a class="nav-link bg-danger text-white" href="../app/logout.php">logout</a>
     </div>
 </nav>
+
 
 <br/>
 
 <div class="container">
 
-    <div class="row">
-        <div class="col-12 text-center">
-            <div class="panel-heading text-white"><h3>Cadastro</h3></div>
-        </div>
-    </div>
 
-    <div class="row">
+    <div class="row" style="margin-top: -10px">
         <div class="col-12">
             <div class="black-back-transparent text-center">
                 <br/><br/><br/>
@@ -51,7 +60,7 @@
                             <!--Nome-->
                             <div class="form-group">
                                 <label for="name" class=" control-label"></label>
-                                <input id="name" type="text"
+                                <input id="nome" type="text"
                                        class="form-control input-transparent text-white-opacity input-lg"
                                        name="nome"
                                        required autofocus placeholder="Nome">
@@ -131,10 +140,39 @@
                             <!---Estado-->
                             <div class="form-group">
                                 <label for="uf" class="control-label"></label>
-                                <input id="uf" type="text"
+                                 <input id="uf" type="text"
                                        class="form-control input-transparent text-white-opacity input-lg"
                                        name="uf"
                                        required placeholder="Estado" maxlength="2">
+                                     <!--  <select name="uf" class="form-control input-transparent text-white-opacity input-lg">
+	<option value="AC">Acre</option>
+	<option value="AL">Alagoas</option>
+	<option value="AP">Amapá</option>
+	<option value="AM">Amazonas</option>
+	<option value="BA">Bahia</option>
+	<option value="CE">Ceará</option>
+	<option value="DF">Distrito Federal</option>
+	<option value="ES">Espírito Santo</option>
+	<option value="GO">Goiás</option>
+	<option value="MA">Maranhão</option>
+	<option value="MT">Mato Grosso</option>
+	<option value="MS">Mato Grosso do Sul</option>
+	<option value="MG">Minas Gerais</option>
+	<option value="PA">Pará</option>
+	<option value="PB">Paraíba</option>
+	<option value="PR">Paraná</option>
+	<option value="PE">Pernambuco</option>
+	<option value="PI">Piauí</option>
+	<option value="RJ">Rio de Janeiro</option>
+	<option value="RN">Rio Grande do Norte</option>
+	<option value="RS">Rio Grande do Sul</option>
+	<option value="RO">Rondônia</option>
+	<option value="RR">Roraima</option>
+	<option value="SC">Santa Catarina</option>
+	<option value="SP">São Paulo</option>
+	<option value="SE">Sergipe</option>
+	<option value="TO">Tocantins</option>
+</select>-->
                             </div>
 
                             <div class="form-group">
@@ -176,6 +214,6 @@
 </footer>
 
 <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-<script src="../js/cep.js"></script>
+<script src="../public/js/cep.js"></script>
 </body>
 </html>

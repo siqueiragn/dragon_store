@@ -26,71 +26,42 @@ session_start();
 </head>
 
 <body>
-
-                <div class="col-md-8">
-                	<?php if($_SESSION['autenticado'] != 'OK'){?>
-                   <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm">
-
-                <div class="col-md-8">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item col-2"><a class="navbar-brand" href="index.php"> Dragon Store </a></li>
-                        <!--colocar if para verificar se o usuário está logado, se estiver mostra o bloco do próximo
-                        comentário-->
-                        <li class="nav-item col-2"><a class="nav-link" href="login.php"> Login</a></li>
-                        <li class="nav-item col-2"><a class="nav-link" href="cadastro.php"> Cadastre - se</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-md-3 form-inline my-2 my-lg-0">
-                     <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
-                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
-                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
-                    </form>
-                </div>
-<?php 
-if($_SESSION['autenticado'] == 'OK'){
-	?>
-                <div class="col-md-1">
-                <a class="nav-link text-white" href="carrinho.php"><i
-                        class="material-icons"> shopping_cart</i></a></nav>
-         <?php }?>
-            </nav>
-        </div>
+<nav class="navbar navbar-default black-back-transparent fixed-top">
+		<a class="navbar-brand text-white" href="index.php"> Dragon Store </a>
+    <?php if (!@$_SESSION['autenticado'] == 'OK') { ?>
+ 
+        <a class="nav-link text-white" href="login.php"> Login</a> <a
+			class="nav-link text-white" href="cadastro.php"> Cadastre - se</a>
+    
+    <?php
+				
+}
+				?>
+<?php if (@$_SESSION['autenticado'] == 'OK') { 	 ?>
+<ul class="navbar-nav mr-auto">
+			<li class="nav-item active text-white"><a
+				class="nav-link text-white left" href="dashboard.php">Meus Dragões<span
+					class="sr-only">(current)</span></a></li>
+		</ul>
+<?php } ?>
+    <div class="form-inline my-2 my-lg-0">
+			<form class="form-inline my-2 my-lg-0" action="resultado.php"
+				method="POST">
+				<input class="form-control mr-sm-2" name="pesquisa" type="text"
+					placeholder="Search" aria-label="Search"> <input
+					class="btn btn-outline-success my-2 my-sm-0" value="Search"
+					type="submit">
         
-    </div>
-</div>
-<?php } else { ?>
-               	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-		    <a class="navbar-brand" href="index.php">Dragon Store</a>
-		    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-		            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-		        <span class="navbar-toggler-icon"></span>
-		    </button>
+    <?php if (@$_SESSION['autenticado'] == 'OK') { 	 ?>
 		
-		    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		        <ul class="navbar-nav mr-auto">
-		            <li class="nav-item active">
-		                <a class="nav-link" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
-		            </li>
-		            <li class="nav-item">
-		                <a class="nav-link" href="perfil.php">Perfil</a>
-		            </li>
-		        </ul>
-		        <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
-                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
-                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
-                    </form>
-		        <a class="nav-link text-white" href="carrinho.php"><i
-		                    class="material-icons"> shopping_cart</i></a>
-		        <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
-		    </div>
-		</nav> 
-                    <?php }
-                    ?>
-                </div>
+        <a class="nav-link text-white" href="carrinho.php"> <i
+					class="material-icons"> shopping_cart</i>
+				</a> <a class="nav-link bg-danger text-white"
+					href="../app/logout.php">logout</a>
+    <?php } ?>
+</form>
+		</div>
+	</nav>
 
  <?php  
     $result = ProdutoDAO::loadByID($_GET['id']);
@@ -136,7 +107,7 @@ if($_SESSION['autenticado'] == 'OK'){
 					<?php echo "<input type='hidden' name='quantidadeTotal' value='".$line['quantidade']."'>"?>
 
 <?php 
-if($_SESSION['autenticado'] == 'OK'){;
+if(@$_SESSION['autenticado'] == 'OK'){;
 echo "<input type='number' min='1' max='".$line['quantidade']."' name='qtde'>"?>	
                     <div class="row">
                         <div class="col-sm-7">

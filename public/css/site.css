@@ -8,7 +8,10 @@
     height: 100vh !important;;
     background-size: 100%;
 }
-
+.left{
+	float:left;
+	display:block;
+}
 .black-back-transparent{
     background-color: rgba(0, 0, 0, 0.6);
 }

@@ -19,7 +19,7 @@ if($_SESSION['autenticado'] != 'OK')
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <body>
 
-<nav class="navbar navbar-expand-md fixed-top black-back-transparent ">
+<nav class="navbar navbar-expand-md fixed-top black-back-transparent">
     <a class="navbar-brand text-white" href="index.php">Dragon Store</a>
     <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
             aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,9 +31,7 @@ if($_SESSION['autenticado'] != 'OK')
             <li class="nav-item active text-white">
                 <a class="nav-link text-white" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link text-white" href="perfil.php">Perfil</a>
-            </li>
+            
         </ul>
         <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
                         <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
@@ -69,7 +67,7 @@ echo "
         
 foreach($resultChart as $line){
 ?>
-        <div class="col-lg-4">
+        <div class="col-lg-4" style="margin-top: 100px;">
             <div class="text-center">
                 <?php echo "<img class='rounded-circle'
                      src='img/".$line['foto'] ."'alt='Imagem' width='140' height='140'>"; 

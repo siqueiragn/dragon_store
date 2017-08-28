@@ -4,21 +4,8 @@ require('../app/DAO/ProdutoDAO.class.php');
 require('../app/DAO/CategoriaDAO.class.php');
 require('../app/DTO/Categoria.class.php');
 session_start();
-if ($_SESSION['autenticado'] != 'OK')
+if ($_SESSION['autenticado'] != 'OK' AND $_SESSION['isAdmin'] != 1)
     header('Location: login.php');
-
-/*if ($_FILES['arquivo']['type'] == 'image/gif'
-  || $_FILES['arquivo']['type'] == 'image/jpeg'
-  || $_FILES['arquivo']['type'] == 'image/jpg'
-  || $_FILES['arquivo']['type'] == 'image/png'){
-      */
-$destino = 'img/' . @$_FILES['arquivo']['name'];
-$arquivo_tmp = @$_FILES['arquivo']['tmp_name'];
-move_uploaded_file($arquivo_tmp, $destino);
-
-ProdutoDAO::insert(new Produto(0, @$_POST['nome'], @$_POST['preco'], @$_POST['quantidade'], @$_FILES['arquivo']['name'], @$_POST['descricao'], @$_POST['categoria']));
-
-
 ?>
 <html>
 <head>
@@ -59,7 +46,7 @@ ProdutoDAO::insert(new Produto(0, @$_POST['nome'], @$_POST['preco'], @$_POST['qu
         </form>
         <a class="nav-link text-white" href="carrinho.php"><i
                     class="material-icons"> shopping_cart</i></a>
-        <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
+        <a class="nav-link bg-danger text-white" href="../app/logout.php">logout</a>
     </div>
 </nav>
 
@@ -86,8 +73,7 @@ ProdutoDAO::insert(new Produto(0, @$_POST['nome'], @$_POST['preco'], @$_POST['qu
                         <label for="preco" class="sr-only"> Preço:</label>
                         <input class="form-control" placeholder="Preço" type="text" name="preco">
 
-                        <label for="nome" class="sr-only"> Categoria: </label>
-                        <input class="form-control" placeholder="Categoria" type="" name="categoria">
+                        <legend style="text-white">Categoria</legend>
                         <select name="categoria">
                             <?php
                             $resultado = CategoriaDAO::loadAll();
@@ -98,8 +84,7 @@ ProdutoDAO::insert(new Produto(0, @$_POST['nome'], @$_POST['preco'], @$_POST['qu
                         </select>
 
                         <legend>Descrição</legend>
-                        <textarea class="form-control" placeholder="Nome do produto"
-                                  placeholder="Escreva alguma observação"
+                        <textarea class="form-control" placeholder="Descricao do produto"
                                   name="descricao"></textarea><br>
 
                         <input class="btn btn-success" type="submit">
@@ -115,4 +100,18 @@ ProdutoDAO::insert(new Produto(0, @$_POST['nome'], @$_POST['preco'], @$_POST['qu
 
 
 
-
+<?php 
+/*if ($_FILES['arquivo']['type'] == 'image/gif'
+ || $_FILES['arquivo']['type'] == 'image/jpeg'
+ || $_FILES['arquivo']['type'] == 'image/jpg'
+ || $_FILES['arquivo']['type'] == 'image/png'){
+ */
+$destino = 'img/' . @$_FILES['arquivo']['name'];
+$arquivo_tmp = @$_FILES['arquivo']['tmp_name'];
+move_uploaded_file( $arquivo_tmp, $destino  );
+if(isset($_POST['nome']))
+	ProdutoDAO::insert(new Produto(0,@$_POST['nome'],@$_POST['preco'],@$_POST['quantidade'],@$_FILES['arquivo']['name'],@$_POST['descricao'],@$_POST['categoria']));
+	$_POST['nome'] = '';
+	unset($_POST);
+	
+?>

@@ -13,8 +13,9 @@ class Usuario{
 	private $complemento;
 	private $isAdmin;
 	
-	function __construct($idUsuario,$nome,$email,$senha,$cep,$numeroCasa, $rua, $bairro, $cidade, $uf,$complemento,$isAdmin){
-		$this->idUsuario = $idUsuario;
+	
+	
+	function __construct($nome,$email,$senha,$cep,$complemento, $isAdmin, $numeroCasa, $rua, $bairro, $cidade, $uf){
 		$this->nome = $nome;
 		$this->email = $email;
 		$this->senha = $senha;
@@ -50,41 +51,22 @@ class Usuario{
 		return $this->isAdmin;
 	}
 
-    /**
-     * @return mixed
-     */
     public function getNumeroCasa()
     {
         return $this->numeroCasa;
     }
-
-    /**
-     * @return mixed
-     */
     public function getBairro()
     {
         return $this->bairro;
     }
-
-    /**
-     * @return mixed
-     */
     public function getRua()
     {
         return $this->rua;
     }
-
-    /**
-     * @return mixed
-     */
     public function getUf()
     {
         return $this->uf;
     }
-
-    /**
-     * @return mixed
-     */
     public function getCidade()
     {
         return $this->cidade;
