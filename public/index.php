@@ -1,73 +1,58 @@
-<?php 
-session_start();
-if($_GET['logout']==1){
-	
-	$_SESSION['autenticado'] = 'NOK';
-}
-if($_SESSION['autenticado'] == 'OK'){
-	header('Location: dashboard.php');
-}
-	?>
-
-<html lang="en">
+<?php
+require ('../app/Login.php');
+?>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
     <title>Dragon Store</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <link href="css/site.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
 <body>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm">
 
-                <div class="col-md-8">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item col-2"><a class="navbar-brand" href="index.php"> Dragon Store </a></li>
-                        <!--colocar if para verificar se o usuário está logado, se estiver mostra o bloco do próximo
-                        comentário-->
-                        <li class="nav-item col-2"><a class="nav-link" href="login.php"> Login</a></li>
-                        <li class="nav-item col-2"><a class="nav-link" href="cadastro.php"> Cadastre - se</a></li>
-                        <!--
-                            <div class="dropdown">
-                            <ul class="dropdown-menu">
-                                <li class="nav-item col">Bem vindo //nome</li>
-                                <li class="nav-item col"><img src="" class="rounded"></li>
-                            </ul>
-                        </div>-->
+<nav class="navbar navbar-default black-back-transparent fixed-top">
 
-                    </ul>
-                </div>
+    <?php if ($_SESSION['autenticado'] == 'NOK') { ?>
 
-                <div class="col-md-3 form-inline my-2 my-lg-0">
-                    <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
-                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
-                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
-                    </form>
-                </div>
-<?php 
-if($_SESSION['autenticado'] == 'OK'){
-	?>
-                <div class="col-md-1">
-                <a class="nav-link text-white" href="carrinho.php"><i
-                        class="material-icons"> shopping_cart</i></a></nav>
-<?php }?>
+        <a class="navbar-brand text-white" href="index.php"> Dragon Store </a>
+        <a class="nav-link text-white" href="login.php"> Login</a>
+        <a class="nav-link text-white" href="cadastro.php"> Cadastre - se</a>
 
-            </nav>
-        </div>
+    <?php }
+    if ($_SESSION['autenticado'] == 'OK') {
+        require('../app/DAO/UsuarioDAO.class.php');
+        $result = UsuarioDAO::loadByName(@$_GET['nome']);
+        foreach ($result as $line) {
+            echo "<b class='text-white'>Bem vindo " . $line['nome'] . "</b>";
+        }
+    } ?>
+
+
+    <div class="form-inline my-2 my-lg-0">
+        <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+            <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search"
+                   aria-label="Search">
+            <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+        </form>
     </div>
-</div>
+    <?php if ($_SESSION['autenticado'] == 'OK') { ?>
+
+        <a class="nav-link text-white" href="carrinho.php">
+            <i class="material-icons"> shopping_cart</i>
+        </a>
+        <a class="nav-link bg-danger text-white" href="../app/logout.php">logout</a>
+    <?php } ?>
+
+</nav>
+
 
 <div class="fixed back">
 
@@ -90,29 +75,28 @@ if($_SESSION['autenticado'] == 'OK'){
 </div>
 
 <br/>
-<!--Colocar while para mostrar todos os produtos, sim todos eles, não vou fazer página pra lista produtos-->
+
 <div class="container">
     <div class="row">
 
-<?php 
-require('../app/DAO/ProdutoDAO.class.php');
+        <?php require('../app/DAO/ProdutoDAO.class.php');
+        $result = ProdutoDAO::loadMPrice(3);
+        foreach ($result as $line) { ?>
 
-$result = ProdutoDAO::loadMPrice(3);
-foreach($result as $line){
-?>
-        <div class="col-lg-4">
-            <div class="text-center">
-                <?php echo "<img class='rounded-circle'
-                     src='img/".$line['foto'] ."'alt='Imagem' width='140' height='140'>"; 
-                 echo "<h2>".$line['nome']."</h2>";
-                echo "<p><b>DESCRIÇÃO</b><br/>".$line['descricao']."</p>";
-                echo "<b>R$: ".$line['preco']."</b>";
-                
-                echo "<br/>
-                <p><a class='btn btn-secondary' href='../public/produto.php?id=".$line['id_produto']."' role='button'>Ver mais</a></p>"; ?>
+            <div class="col-lg-4">
+                <div class="text-center">
+                    <?php echo "<img class='rounded-circle' src='img/" . $line['foto'] . "'alt='Imagem' width='140' height='140'/>";
+                    echo "<h2>" . $line['nome'] . "</h2>";
+                    echo "<p><b>DESCRIÇÃO</b><br/>" . $line['descricao'] . "</p>";
+                    echo "<b>R$: " . $line['preco'] . "</b>";
+
+                    echo "<br/>
+                <p><a class='btn btn-secondary' href='../public/produto.php?id=" . $line['id_produto'] . "' role='button'>Ver mais</a></p>"; ?>
+                </div>
             </div>
-        </div>
-<?php }?>
+
+        <?php } ?>
+
     </div>
 </div>
 
@@ -131,14 +115,4 @@ foreach($result as $line){
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.js"></script>
 
-<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500" preserveAspectRatio="none"
-     style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;">
-    <defs>
-        <style type="text/css"></style>
-    </defs>
-    <text x="0" y="25" style="font-weight:bold;font-size:25pt;font-family:Arial, Helvetica, Open Sans, sans-serif">
-        500x500
-    </text>
-</svg>
 </body>
-</html>

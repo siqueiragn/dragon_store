@@ -4,7 +4,7 @@ require('../app/DAO/CategoriaDAO.class.php');
 session_start();
 ?>
 
-<html lang="pt">
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,7 +13,7 @@ session_start();
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-    <title>Dragon Store</title>
+    <title>Dragon Store - Produto</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">

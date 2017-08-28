@@ -11,15 +11,14 @@ if(isset($_SESSION['autenticado']) && ($_SESSION['autenticado'] == 'OK'))
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+
     <title>Dragon Store</title>
 
-    <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
     <link href="css/site.css" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 </head>
 
 <body class="fixed back-image cuca">
@@ -35,7 +34,6 @@ if(isset($_SESSION['autenticado']) && ($_SESSION['autenticado'] == 'OK'))
         </div>
     </div>
 </nav>
-
 
 <div class="container">
     <div class="row justify-content-md-center">
@@ -56,6 +54,14 @@ if(isset($_SESSION['autenticado']) && ($_SESSION['autenticado'] == 'OK'))
         </div>
     </div>
 </div>
+
+
+<footer class="card-footer black-back-transparent fixed-bottom">
+    <div class="text-center text-white">
+        <p><a href="http://canoas.ifrs.edu.br">2017 - IFRS Campus Canoas</a></p>
+        <p>Feito por: Gabriel Nunes, Lucas Matos, Raul Steffen</p>
+    </div>
+</footer>
 
 </body>
 </html>

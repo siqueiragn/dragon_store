@@ -4,19 +4,18 @@
 require('../app/DAO/CarrinhoDAO.class.php');
 session_start();
 $_SESSION['totalizando'] = 0;
-if($_SESSION['autenticado'] != 'OK')
-	header('Location: login.php');
+if ($_SESSION['autenticado'] != 'OK')
+    header('Location: login.php');
 
-	
-	
-	if(isset($_GET['delete'])){
-		
-		CarrinhoDAO::delete($_GET['delete']);
-		CarrinhoDAO::updateQuantidade($_GET['idProd'], $_GET['qtde'],'+');
-		header("Location: carrinho.php");
-	}
-	
-	
+
+if (isset($_GET['delete'])) {
+
+    CarrinhoDAO::delete($_GET['delete']);
+    CarrinhoDAO::updateQuantidade($_GET['idProd'], $_GET['qtde'], '+');
+    header("Location: carrinho.php");
+}
+
+
 ?>
 
 <html lang="pt">
@@ -39,66 +38,72 @@ if($_SESSION['autenticado'] != 'OK')
 
 <body>
 
-  <div class="col-md-8">
-                	<?php if($_SESSION['autenticado'] != 'OK'){?>
-                   <div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12">
-            <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-sm">
+<div class="col-md-8">
+    <?php if ($_SESSION['autenticado'] != 'OK') { ?>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav class="navbar navbar-dark  black-back-transparent fixed-top navbar-expand-sm">
 
-                <div class="col-md-8">
-                    <ul class="nav navbar-nav">
-                        <li class="nav-item col-2"><a class="navbar-brand" href="index.php"> Dragon Store </a></li>
-                        <!--colocar if para verificar se o usuário está logado, se estiver mostra o bloco do próximo
-                        comentário-->
-                        <li class="nav-item col-2"><a class="nav-link" href="login.php"> Login</a></li>
-                        <li class="nav-item col-2"><a class="nav-link" href="cadastro.php"> Cadastre - se</a></li>
-                    </ul>
+                        <div class="col-md-8">
+                            <ul class="nav navbar-nav">
+                                <li class="nav-item col-2"><a class="navbar-brand" href="index.php"> Dragon Store </a>
+                                </li>
+                                <!--colocar if para verificar se o usuário está logado, se estiver mostra o bloco do próximo
+                                comentário-->
+                                <li class="nav-item col-2"><a class="nav-link" href="login.php"> Login</a></li>
+                                <li class="nav-item col-2"><a class="nav-link" href="cadastro.php"> Cadastre - se</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3 form-inline my-2 my-lg-0">
+                            <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                                <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search"
+                                       aria-label="Search">
+                                <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+                            </form>
+                        </div>
+
+                        <div class="col-md-1">
+                            <a class="nav-link text-white" href="carrinho.php"><i
+                                        class="material-icons"> shopping_cart</i></a>
+                    </nav>
+                    </nav>
                 </div>
-
-                <div class="col-md-3 form-inline my-2 my-lg-0">
-                      <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
-                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
-                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
-                    </form>
-                </div>
-
-                <div class="col-md-1">
-                <a class="nav-link text-white" href="carrinho.php"><i
-                        class="material-icons"> shopping_cart</i></a></nav>
-            </nav>
+            </div>
         </div>
-    </div>
+    <?php } else { ?>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="navbar-brand" href="index.php">Dragon Store</a>
+            <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
+                    data-target="#navbarsExampleDefault"
+                    aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="perfil.php">Perfil</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
+                    <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search"
+                           aria-label="Search">
+                    <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
+                </form>
+                <a class="nav-link text-white" href="carrinho.php"><i
+                            class="material-icons"> shopping_cart</i></a>
+                <a class="nav-link bg-danger text-white" href="../app/logout.php">logout</a>
+            </div>
+        </nav>
+    <?php }
+    ?>
 </div>
-<?php } else { ?>
-               	<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-		    <a class="navbar-brand" href="index.php">Dragon Store</a>
-		    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault"
-		            aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-		        <span class="navbar-toggler-icon"></span>
-		    </button>
-		
-		    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		        <ul class="navbar-nav mr-auto">
-		            <li class="nav-item active">
-		                <a class="nav-link" href="dashboard.php">Meus Dragões<span class="sr-only">(current)</span></a>
-		            </li>
-		            <li class="nav-item">
-		                <a class="nav-link" href="perfil.php">Perfil</a>
-		            </li>
-		        </ul>
-		          <form class="form-inline my-2 my-lg-0" action="resultado.php" method="POST">
-                        <input class="form-control mr-sm-2" name="pesquisa" type="text" placeholder="Search" aria-label="Search">
-                        <input class="btn btn-outline-success my-2 my-sm-0" value="Search" type="submit">
-                    </form>
-		        <a class="nav-link text-white" href="carrinho.php"><i
-		                    class="material-icons"> shopping_cart</i></a>
-		        <a class="nav-link bg-danger text-white" href="index.php?logout=1">logout</a>
-		    </div>
-		</nav> 
-                    <?php }
-                    ?>
-                </div>
 
 <br/>
 
@@ -109,7 +114,7 @@ $result = CarrinhoDAO::loadProdutoByChart($_SESSION['idUsuario']);
 $acm = '';
 foreach ($result as $line) {
     $acm .= $line['id_produto'] . ",";
-	?>
+    ?>
 
     <div class="container">
         <div class="col-sm-12">
@@ -130,12 +135,12 @@ foreach ($result as $line) {
                             <?php echo "<p class='product-description'>" . $line['descricao'] . "</p><br/>"; ?>
                             <br/>
                             <?php echo "<small>Quantidade:<span> " . $line['quantidade'] . "</span></small><br/>"; ?>
-                            <?php echo "<h4 class='price'>Preço R$<span> " . $line['preco']*$line['quantidade'] . "</span></h4>";
+                            <?php echo "<h4 class='price'>Preço R$<span> " . $line['preco'] * $line['quantidade'] . "</span></h4>";
                             ?>
-                            <?php echo "<a class='text-white' href='carrinho.php?delete=".$line['id_carrinho']."&idProd=".$line['id_produto']."&qtde=".$line['quantidade']."'>"?>
+                            <?php echo "<a class='text-white' href='carrinho.php?delete=" . $line['id_carrinho'] . "&idProd=" . $line['id_produto'] . "&qtde=" . $line['quantidade'] . "'>" ?>
                             <i class="material-icons">delete</i>
-                            <?php echo "</a>"?>
-                            
+                            <?php echo "</a>" ?>
+
                         </div>
                     </div>
 
@@ -146,16 +151,16 @@ foreach ($result as $line) {
     </div>
 
 
-<?php
-$_SESSION['totalizando'] += $line['preco']*$line['quantidade'];
+    <?php
+    $_SESSION['totalizando'] += $line['preco'] * $line['quantidade'];
 }
 
-$_SESSION['carrinho'] = substr_replace ( $acm , '' , strlen($acm)-1 );
+$_SESSION['carrinho'] = substr_replace($acm, '', strlen($acm) - 1);
 ?>
 
 <br/>
-<?php if($acm != ''){
-	echo "<div class='container'>
+<?php if ($acm != '') {
+    echo "<div class='container'>
     <div class='row'>
         <div class='col-12'>
             <div class='card black text-center'>
@@ -164,28 +169,29 @@ $_SESSION['carrinho'] = substr_replace ( $acm , '' , strlen($acm)-1 );
         </div>
     </div>
 </div>";
-	?>
-<hr class="featurette-divider">
+    ?>
+    <hr class="featurette-divider">
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-9">
-        </div>
-        <div class="col-md-3">
-            <div class="d-flex ml-3">
-                <button class="btn-lg btn btn-danger" type="button"><a class="text-white"
-                                                                       href="comprar.php"> Comprar</a>
-                </button>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+            </div>
+            <div class="col-md-3">
+                <div class="d-flex ml-3">
+                    <button class="btn-lg btn btn-danger" type="button"><a class="text-white"
+                                                                           href="comprar.php"> Comprar</a>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<?php } else{
-	echo "<div class='container'>
+<?php } else {
+    echo "<div class='container'>
     <div class='row'>
         <div class='col-12'>
             <div class='card black text-center'>
-                <h3 class='text-white'>Vossa senhoria " ./* .$_SESSION['cidade']. */"não possui nenhum
+                <h3 class='text-white'>Vossa senhoria " ./* .$_SESSION['cidade']. */
+        "não possui nenhum
                     dragão no seu carrinho.</h3>
             </div>
         </div>

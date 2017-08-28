@@ -1,4 +1,9 @@
-<html lang="en">
+<?php
+require('../app/DAO/UsuarioDAO.class.php');
+session_start();
+?>
+
+<html lang="pt-br">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -7,7 +12,7 @@
 
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-    <title>Dragon Store - Cadastro</title>
+    <title>Dragon Store - Perfil</title>
 
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/site.css" rel="stylesheet">

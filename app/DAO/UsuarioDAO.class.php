@@ -15,6 +15,14 @@ class UsuarioDAO {
 		"','". MYSQL::filtrar($user->getAdmin()) . "')";
 		$db->exec($query);
 	}
+
+    public static function loadByName($nome){
+        $db = new MYSQL();
+        $query = "SELECT * FROM usuario";
+        if($nome != '')
+            $query .= " WHERE nome LIKE '%" . MYSQL::filtrar($nome)."%'";
+        return $db->exec($query);
+    }
 	
 	
 }
